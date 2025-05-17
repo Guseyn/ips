@@ -46,7 +46,8 @@ This Java application efficiently calculates the number of unique IPv4 addresses
 
 ## Usage
 
-Place your list of IPv4 addresses in the file: `src/main/resources/ips.txt` (One IP address per line, e.g., 192.168.1.1).
+- Run `IpWriter` to generate your list of IPv4 addresses in the file: `src/main/resources/ips.txt` (One IP address per line, e.g., 192.168.1.1) or place your file.
+- Run `App` to get unique number of IP addresses.
 
 ---
 
