@@ -1,67 +1,36 @@
 # Unique IPv4 Address Counter
 
-This Java application efficiently calculates the number of unique IPv4 addresses from a large list using a memory-optimized data structure and multithreading.
+This Java project efficiently counts the number of **unique IPv4 addresses** from a large input file using **low memory and high performance** techniques. It's built to scale to files containing **tens or hundreds of gigabytes** of IP data.
 
 ---
 
-## Components
+## 🚀 Features
 
-### 1. `App` - Unique IP Counter
-
-- Reads IPs from `src/main/resources/ips.txt`.
-- Converts each IPv4 string to a 32-bit unsigned integer stored in a `long`.
-- Marks presence in one of two synchronized `BitSet`s depending on the IP range.
-- Uses a fixed thread pool sized to the number of CPU cores for concurrent processing.
-- Outputs the count of unique IP addresses.
-
-### 2. `IpWriter` - Test Data Generator
-
-- Generates `10,000,000` random IPv4 addresses.
-- Each IP can be duplicated between 1 to 3 times randomly.
-- Writes the generated IP list to `src/main/resources/ips.txt`.
-- Useful to create large input files for testing the `App`.
+- Processes unlimited size files line-by-line using Java Streams
+- Custom IP address to `int` converter (`IPToIntConvertor`)
+- Efficient deduplication using a memory-optimized `BitSetContainer`
+- Uses only Java standard library (no external dependencies)
+- IP addresses are stored as 32-bit signed integers (`int`)
+- Supports reading input file from classpath via ClassLoader
 
 ---
 
-## Features
+## 📂 Project Structure
 
-- Uses two BitSet instances to track IPv4 addresses in their full 32-bit unsigned range (0 to 4,294,967,295).
-- Splits the address space into two halves to overcome BitSet index limits (int max value).
-- Processes input file lines concurrently using a thread pool sized to available CPU cores.
-- Thread-safe updates on shared BitSets using synchronization.
-- Reads IP addresses from a resource file named ips.txt (one IP per line).
-- Prints the count of unique IP addresses after processing.
-
----
-
-## How it works
-
-- Each IP address string is converted to a 32-bit unsigned integer stored in a long.
-- Addresses ≤ Integer.MAX_VALUE are stored in LOWER_BIT_SET.
-- Addresses > Integer.MAX_VALUE are stored in UPPER_BIT_SET with adjusted indices.
-- Each IP address is marked as "seen" in the appropriate BitSet.
-- The final count is the sum of the cardinalities of both BitSets.
-
----
+src
+└── main
+├── java
+│   └── com
+│       └── guseyn
+│           ├── App.java # Entry point: counts unique IPv4 addresses using classloader
+│           ├── BitSetContainer.java  # Efficient int container using BitSet array for deduplication
+│           ├── IntContainer.java  # Interface for custom integer containers
+│           ├── IpWriter.java # Fast, memory-efficient converter from IPv4 string to int
+│           └── OptimizedConverter.java
+└── resources
+└── ips.txt # Input file containing IPv4 addresses, one per line
 
 ## Usage
 
-- Run `IpWriter` to generate your list of IPv4 addresses in the file: `src/main/resources/ips.txt` (One IP address per line, e.g., 192.168.1.1) or place your file.
+- Run `IpWriter` to generate your list of IPv4 addresses in the file: src/main/resources/ips.txt (One IP address per line, e.g., 192.168.1.1) or place your file.
 - Run `App` to get unique number of IP addresses.
-
----
-
-## Performance notes
-
-- Uses all available CPU cores to process IPs concurrently.
-- Memory usage is optimized by storing IPs as bits rather than using a full hash set or list.
-- Suitable for large input files containing millions of IP addresses.
-
----
-
-## Limitations
-
-- Assumes input IPs are valid IPv4 strings.
-- Uses Java standard library only.
-- Maximum IPv4 range supported (32-bit unsigned space).
-- Can be extended to batch input lines for fewer synchronization calls.
