@@ -17,6 +17,7 @@ This Java project efficiently counts the number of **unique IPv4 addresses** fro
 
 ## 📂 Project Structure
 
+```txt
 src
 └── main
 ├── java
@@ -26,9 +27,10 @@ src
 │           ├── BitSetContainer.java  # Efficient int container using BitSet array for deduplication
 │           ├── IntContainer.java  # Interface for custom integer containers
 │           ├── IpWriter.java # Fast, memory-efficient converter from IPv4 string to int
-│           └── OptimizedConverter.java
+│           └── IPToIntConverter.java
 └── resources
 └── ips.txt # Input file containing IPv4 addresses, one per line
+```
 
 ## Usage
 
