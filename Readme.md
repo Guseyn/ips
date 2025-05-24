@@ -36,3 +36,7 @@ src
 
 - Run `IpWriter` to generate your list of IPv4 addresses in the file: src/main/resources/ips.txt (One IP address per line, e.g., 192.168.1.1) or place your file.
 - Run `App` to get unique number of IP addresses.
+
+## Shout-out
+
+Main principals are learnt from the article written by Jegors Čemisovs: https://jc.id.lv/posts/counting-unique-ipv4-addresses/
